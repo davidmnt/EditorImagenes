@@ -1,11 +1,14 @@
 package Controlador;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Interfaz {
     private JPanel PanelPrinc;
@@ -28,7 +31,7 @@ public class Interfaz {
     private JSlider progressBarNivel;
     private JLabel imagen2;
     private JLabel Nivel;
-    private JLabel Color;
+    private JLabel Oros;
     private JSlider progressBarColor;
 
 
@@ -45,34 +48,18 @@ public class Interfaz {
         Abrir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-
-                // Filtrar solo archivos de imagen
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
-                fileChooser.setFileFilter(filter);
-
-                // Mostrar el diálogo para seleccionar el archivo
-                int result = fileChooser.showOpenDialog(null);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-
-                    ImagenSeleccionada.setText("");
-
-                    // Obtener el archivo seleccionado
-                    File selectedFile = fileChooser.getSelectedFile();
-
-                    // Crear un ImageIcon desde el archivo seleccionado
-                    ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
-
-                    Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-                    ImageIcon scaledIcon = new ImageIcon(image);
-
-                    // Crear un JLabel para mostrar la imagen
-
-                    ImagenSeleccionada.setIcon(scaledIcon);
-                }
+                abirArchivos();
             }
         });
+
+        btn_guardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                   guardarArchivo();
+                 }
+
+            });
 
         BN.addActionListener(new ActionListener() {
             @Override
@@ -176,9 +163,58 @@ public class Interfaz {
             }
         });
 
+    }
 
+    private void abirArchivos(){
 
+        JFileChooser fileChooser = new JFileChooser();
 
+        // Filtrar solo archivos de imagen
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        // Mostrar el diálogo para seleccionar el archivo
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+
+            ImagenSeleccionada.setText("");
+
+            // Obtener el archivo seleccionado
+            File selectedFile = fileChooser.getSelectedFile();
+
+            // Crear un ImageIcon desde el archivo seleccionado
+            ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+
+            Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(image);
+
+            // Crear un JLabel para mostrar la imagen
+
+            ImagenSeleccionada.setIcon(scaledIcon);
+        }
+    }
+
+    private void guardarArchivo(){
+
+        if (ImagenConvertira.getIcon() != null) {
+            JFileChooser fileChooser = new JFileChooser();
+            int seleccion = fileChooser.showSaveDialog(null);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File fileDestino = fileChooser.getSelectedFile();
+                try {
+                    Image img = ((ImageIcon) ImagenConvertira.getIcon()).getImage();
+                    BufferedImage bufferedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2 = bufferedImage.createGraphics();
+                    g2.drawImage(img, 0, 0, null);
+                    g2.dispose();
+                    ImageIO.write(bufferedImage,"png", fileDestino);
+
+                } catch (IOException ex) {
+                    ex.getStackTrace();
+                }
+            }
+        }
     }
 
 
