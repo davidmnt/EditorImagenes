@@ -33,6 +33,9 @@ public class Interfaz {
     private JLabel Nivel;
     private JLabel Oros;
     private JSlider progressBarColor;
+    private JPanel PanelParametros;
+    private final int ANCHURA = 250;
+    private final int ALTURA = 180;
 
 
     public static void main(String[] args) {
@@ -68,7 +71,7 @@ public class Interfaz {
 
                 ImageIcon icon = new ImageIcon("src/Imagenes/Costa-BN.png");
 
-                Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                Image image = icon.getImage().getScaledInstance(ANCHURA, ALTURA, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
 
                 // Crear un JLabel para mostrar la imagen
@@ -85,7 +88,7 @@ public class Interfaz {
 
                 ImageIcon icon = new ImageIcon("src/Imagenes/Costa-sepia.jpg");
 
-                Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                Image image = icon.getImage().getScaledInstance(ANCHURA, ALTURA, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
 
                 // Crear un JLabel para mostrar la imagen
@@ -102,7 +105,7 @@ public class Interfaz {
 
                 ImageIcon icon = new ImageIcon("src/Imagenes/Costa-grises.jpg");
 
-                Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                Image image = icon.getImage().getScaledInstance(ANCHURA, ALTURA, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
 
                 // Crear un JLabel para mostrar la imagen
@@ -119,7 +122,7 @@ public class Interfaz {
 
                 ImageIcon icon = new ImageIcon("src/Imagenes/Costa-AltoContraste.jpg");
 
-                Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                Image image = icon.getImage().getScaledInstance(ANCHURA, ALTURA, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
 
                 // Crear un JLabel para mostrar la imagen
@@ -136,7 +139,7 @@ public class Interfaz {
 
                 ImageIcon icon = new ImageIcon("src/Imagenes/Costa-pixelada.jpg");
 
-                Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                Image image = icon.getImage().getScaledInstance(ANCHURA, ALTURA, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
 
                 // Crear un JLabel para mostrar la imagen
@@ -153,7 +156,7 @@ public class Interfaz {
 
                 ImageIcon icon = new ImageIcon("src/Imagenes/Costa-BajaCalidad.jpeg");
 
-                Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                Image image = icon.getImage().getScaledInstance(ANCHURA, ALTURA, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
 
                 // Crear un JLabel para mostrar la imagen
