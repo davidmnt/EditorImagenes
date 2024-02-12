@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Arrays;
 
 public class Interfaz {
     private JPanel PanelPrinc;
@@ -58,8 +59,13 @@ public class Interfaz {
         btn_guardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(ImagenConvertira.getIcon() != null){
+                    guardarArchivo();
 
-                   guardarArchivo();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Primero necesitas convertir la imagen");
+                }
+
                  }
 
             });
@@ -172,30 +178,37 @@ public class Interfaz {
 
         JFileChooser fileChooser = new JFileChooser();
 
-        // Filtrar solo archivos de imagen
+// Filtrar solo archivos de imagen
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(filter);
 
-        // Mostrar el diálogo para seleccionar el archivo
+// Mostrar el diálogo para seleccionar el archivo
         int result = fileChooser.showOpenDialog(null);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-
-            ImagenSeleccionada.setText("");
-
             // Obtener el archivo seleccionado
             File selectedFile = fileChooser.getSelectedFile();
+
+            // Verificar si la extensión del archivo seleccionado es válida
+            String fileName = selectedFile.getName();
+            String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+            if (!Arrays.asList("jpg", "jpeg", "png", "gif").contains(extension.toLowerCase())) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione un archivo de imagen válido (jpg, jpeg, png, gif).", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la extensión no es válida
+            }
 
             // Crear un ImageIcon desde el archivo seleccionado
             ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
 
-            Image image = icon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+            Image image = icon.getImage().getScaledInstance(150, 180, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(image);
 
             // Crear un JLabel para mostrar la imagen
-
+            ImagenSeleccionada.setText("");
             ImagenSeleccionada.setIcon(scaledIcon);
         }
+
     }
 
     private void guardarArchivo(){
